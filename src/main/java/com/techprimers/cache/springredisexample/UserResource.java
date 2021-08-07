@@ -2,14 +2,19 @@ package com.techprimers.cache.springredisexample;
 
 
 import com.techprimers.cache.springredisexample.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/springredis")
+@EnableCaching
 public class UserResource {
 
+    @Autowired
     private UserRepository userRepository;
 
     public UserResource(UserRepository userRepository) {
@@ -34,15 +39,16 @@ public class UserResource {
     }
 
     @GetMapping("/user/{id}")
+    @Cacheable(key = "#id", value = "USER")
     public User getUser(@PathVariable("id") final String id) {
         return userRepository.findById(id);
 
     }
 
-    @GetMapping("/user/delete/{id}")
-    public Map<String, User> delete(@PathVariable("id") final String id) {
+    @DeleteMapping("/user/delete/{id}")
+    public String delete(@PathVariable("id") final String id) {
         userRepository.delete(id);
-        return all();
+        return "Given user with id " + id + " deleted ";
     }
 
     @GetMapping("/user/all")

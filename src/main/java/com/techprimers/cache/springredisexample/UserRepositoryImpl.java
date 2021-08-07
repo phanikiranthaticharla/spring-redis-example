@@ -1,6 +1,7 @@
 package com.techprimers.cache.springredisexample;
 
 import com.techprimers.cache.springredisexample.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,12 +11,13 @@ import java.util.Map;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private RedisTemplate<String, User> redisTemplate;
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
     private HashOperations hashOperations;
 
 
-    public UserRepositoryImpl(RedisTemplate<String, User> redisTemplate) {
+    public UserRepositoryImpl(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
 
         hashOperations = redisTemplate.opsForHash();
@@ -33,6 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findById(String id) {
+        System.out.println("Get Request hit the database!");
         return (User)hashOperations.get("USER", id);
     }
 

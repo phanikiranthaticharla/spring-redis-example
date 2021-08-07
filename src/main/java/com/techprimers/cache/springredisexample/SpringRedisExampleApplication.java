@@ -6,10 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @SpringBootApplication
+@EnableRedisRepositories
 public class SpringRedisExampleApplication {
 
 	@Bean
@@ -22,8 +24,8 @@ public class SpringRedisExampleApplication {
 	}
 
 	@Bean
-	RedisTemplate<String, User> redisTemplate() {
-		RedisTemplate<String, User> redisTemplate = new RedisTemplate<>();
+	RedisTemplate<Object, Object> redisTemplate() {
+		RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
