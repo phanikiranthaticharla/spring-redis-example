@@ -33,7 +33,7 @@ public class UserResource {
         return user;
     }
 
-    @PostMapping("/user/updateuser")
+    @PutMapping("/user/updateuser")
     public String update(@RequestBody User user) {
         userRepository.update(user);
         return "Given user updated";
