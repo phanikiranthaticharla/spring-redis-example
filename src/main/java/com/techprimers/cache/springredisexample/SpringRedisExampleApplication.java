@@ -12,7 +12,11 @@ public class SpringRedisExampleApplication {
 
 	@Bean
 	JedisConnectionFactory jedisConnectionFactory() {
-		return new JedisConnectionFactory();
+
+		JedisConnectionFactory factory = new JedisConnectionFactory();
+		factory.setHostName("localhost");
+		factory.setPort(6379);
+		return factory;
 	}
 
 	@Bean

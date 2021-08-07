@@ -2,6 +2,7 @@ package com.techprimers.cache.springredisexample.model;
 
 import java.io.Serializable;
 
+
 public class User implements Serializable {
 
     private String id;

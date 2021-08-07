@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping("/springredis")
 public class UserResource {
 
     private UserRepository userRepository;
 
     public UserResource(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello Spring Boot and Redis";
     }
 
     @GetMapping("/add/{id}/{name}")
