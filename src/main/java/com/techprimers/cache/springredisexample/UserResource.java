@@ -3,6 +3,7 @@ package com.techprimers.cache.springredisexample;
 
 import com.techprimers.cache.springredisexample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,7 @@ public class UserResource {
     }
 
     @DeleteMapping("/user/delete/{id}")
+    @CacheEvict(key = "#id", value = "USER")
     public String delete(@PathVariable("id") final String id) {
         userRepository.delete(id);
         return "Given user with id " + id + " deleted ";
